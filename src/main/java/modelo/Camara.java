@@ -10,7 +10,7 @@ package modelo;
  * @author manue
  */
 public class Camara {
-    private String codigo_camara;
+    private int codigo_camara;
 
 private int tempMaxima;
 	
@@ -24,7 +24,7 @@ private boolean puerta;
 private boolean motor;
 
 
-public  Camara(String codigo_camara, int tempMaxima, int valorS1, int valorS2, boolean puerta, boolean motor) {
+public  Camara(int codigo_camara, int tempMaxima, int valorS1, int valorS2, boolean puerta, boolean motor) {
 	super();
 	this.codigo_camara = codigo_camara;
 	this.tempMaxima = tempMaxima;
@@ -40,10 +40,10 @@ public Camara() {
 }
 
 
-public String getCodigo_camara() {
+public int getCodigo_camara() {
 	return codigo_camara;
 }
-public void setCodigo_camara(String codigo_camara) {
+public void setCodigo_camara(int codigo_camara) {
 	this.codigo_camara = codigo_camara;
 }
 public int getTempMaxima() {
@@ -78,31 +78,9 @@ public void setMotor(boolean motor) {
 }
 
 
-@Override
-public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((codigo_camara == null) ? 0 : codigo_camara.hashCode());
-	return result;
-}
 
 
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Camara other = (Camara) obj;
-	if (codigo_camara == null) {
-		if (other.codigo_camara != null)
-			return false;
-	} else if (!codigo_camara.equals(other.codigo_camara))
-		return false;
-	return true;
-}
+
 
 
 @Override

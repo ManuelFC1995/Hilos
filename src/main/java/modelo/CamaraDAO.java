@@ -5,21 +5,29 @@
  */
 package modelo;
 
+import data.Conection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author manue
  */
 public class CamaraDAO extends Camara {
-
-    public CamaraDAO(String codigo_camara, int tempMaxima, int valorS1, int valorS2, boolean puerta, boolean motor) {
-        super(codigo_camara, tempMaxima, valorS1, valorS2, puerta, motor);
-    }
+  Connection con;
+   
 
     public CamaraDAO() {
+               this.con = Conection.GetConnection();
     }
     
    // Elegid//Metodo read camaras (traer las dos camaras) y devolver un Array de tres camaras
+    
+    
   // Manu //metodos read de 1 camara por id ( nos trae la camara con toda su info) where id= 1 2 y 3
+   
   //Elegid  //metodo update(actualizar valores de la camara)
     
 }
