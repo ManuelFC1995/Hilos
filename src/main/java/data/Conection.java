@@ -32,7 +32,7 @@ public class Conection {
         Connection conexion=null;
         try{
         String Timezone="?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String ip="localhost:3306/musicddbb";
+        String ip="localhost:3306/hilos";
         String url="jdbc:mysql://";
         String user="root";
         String pass="";
