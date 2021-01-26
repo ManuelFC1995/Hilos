@@ -17,12 +17,12 @@ import modelo.CamaraDAO;
  */
 public class App {
     public static void main(String[] args) throws SQLException {
-     
+    /*
         CamaraDAO c=new CamaraDAO();
         Camara cm = new Camara();
         
         cm=c.SelectCamaraID(1);
         System.out.println(cm);
-        
+   */  
     }
 }
