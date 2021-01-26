@@ -18,8 +18,8 @@ public class CamaraDAO extends Camara {
     public CamaraDAO() {
     }
     
-    //Metodo read camaras (traer las dos camaras) y devolver un Array de tres camaras
-    //metodos read de 1 camara por id ( nos trae la camara con toda su info) where id= 1 2 y 3
-    //metodo update(actualizar valores de la camara)
+   // Elegid//Metodo read camaras (traer las dos camaras) y devolver un Array de tres camaras
+  // Manu //metodos read de 1 camara por id ( nos trae la camara con toda su info) where id= 1 2 y 3
+  //Elegid  //metodo update(actualizar valores de la camara)
     
 }
