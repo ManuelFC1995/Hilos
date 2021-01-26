@@ -6,7 +6,7 @@
 package data;
 
 
-    import java.sql.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -15,39 +15,21 @@ import java.util.logging.Logger;
 
 public class Conection {
 
-
-
-
-    private static void cargarDriver() {
- try {
- //Introducimos el driver
- Class.forName("com.mysql.cj.jdbc.Driver");
- } catch (ClassNotFoundException ex) {
- ex.printStackTrace();
- }
- }
+    Connection con;
+    final String url="jdbc:mysql://localhost:3306/hilos";
+    final String user="root";
+    final String pass="";
+    final String timezone="?useLegacyDatetimeCode=false&serverTimezone=UTC";
     
-    public static Connection GetConnection(){
-        cargarDriver();
-        Connection conexion=null;
+    public Connection Conectar(){
         try{
-        String Timezone="?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-        String ip="localhost:3306/hilos";
-        String url="jdbc:mysql://";
-        String user="root";
-        String pass="";
-        conexion=DriverManager.getConnection(url+ip+Timezone, user, pass);
-       
-   
-        return conexion;
-          
-        } catch (SQLException ex) {
-            Logger.getLogger(Conection.class.getName()).log(Level.SEVERE, null, ex);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url+timezone, user, pass);
+        }catch(ClassNotFoundException | SQLException ex){
+            Logger.getLogger("DBcon").log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
-       
-          return conexion;
+    return con;
     }
-
-    
 }
 
