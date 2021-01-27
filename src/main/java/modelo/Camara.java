@@ -18,9 +18,11 @@ private int valorS1 ;
 	
 private int valorS2; 
 	
-	
+	//true abierta
+//false cerrada
 private boolean puerta;
-
+//true encendido
+//false apagado
 private boolean motor;
 
 
@@ -67,14 +69,24 @@ public void setValorS2(int valorS2) {
 public boolean isPuerta() {
 	return puerta;
 }
-public void setPuerta(boolean puerta) {
-	this.puerta = puerta;
+public void setPuerta(int puerta) {
+	if(puerta==1){
+           this.puerta=true;
+                    
+                    } else{
+            this.puerta=false;
+        }
 }
 public boolean isMotor() {
 	return motor;
 }
-public void setMotor(boolean motor) {
-	this.motor = motor;
+public void setMotor(int motor) {
+		if(motor==1){
+           this.motor=true;
+                    
+                    } else{
+            this.motor=false;
+        }
 }
 
 

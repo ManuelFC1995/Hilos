@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Conection {
+public  class Conection {
 
     Connection con;
     final String url="jdbc:mysql://localhost:3306/hilos";
@@ -21,7 +21,7 @@ public class Conection {
     final String pass="";
     final String timezone="?useLegacyDatetimeCode=false&serverTimezone=UTC";
     
-    public Connection Conectar(){
+    public  Connection Conectar(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url+timezone, user, pass);

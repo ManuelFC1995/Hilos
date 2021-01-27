@@ -48,8 +48,8 @@ public class CamaraDAO extends Camara {
                 c.setTempMaxima(rs.getInt(2));
                 c.setValorS1(rs.getInt(3));
                 c.setValorS2(rs.getInt(4));
-                c.setPuerta(rs.getBoolean(5));
-                c.setMotor(rs.getBoolean(6));
+                c.setPuerta(rs.getInt(5));
+                c.setMotor(rs.getInt(6));
                 
                 elementos.add(c);
             

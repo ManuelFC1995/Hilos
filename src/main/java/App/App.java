@@ -7,6 +7,7 @@ package App;
 
 import GUI.Menu;
 import data.Conection;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,15 @@ import modelo.CamaraDAO;
  */
 public class App {
     public static void main(String[] args) throws SQLException {
-    
-        CamaraDAO c=new CamaraDAO();
+  
+        
+       CamaraDAO c=new CamaraDAO();
         Camara cm = new Camara();
         List<Camara> camaras=new ArrayList();
         
         
         camaras=c.load();
         System.out.println(camaras);
-    
+   
     }
 }
