@@ -80,6 +80,29 @@ public void setPuerta(int puerta) {
 public boolean isMotor() {
 	return motor;
 }
+
+public boolean Arranque(){
+    if (motor== false){
+        if(puerta==false){
+            motor=true;
+            return true;
+            
+        }else{
+            return false;
+        }
+        
+    }else{
+        return false;
+    }
+}
+
+public void BotonPuerta(){
+    if (puerta==true){
+        puerta=false;
+    }else{
+        puerta=true;
+    }
+}
 public void setMotor(int motor) {
 		if(motor==1){
            this.motor=true;
@@ -97,8 +120,9 @@ public void setMotor(int motor) {
 
 @Override
 public String toString() {
-	return "camaras [codigo_camara=" + codigo_camara + ", tempMaxima=" + tempMaxima + ", valorS1=" + valorS1
-			+ ", valorS2=" + valorS2 + ", puerta=" + puerta + ", motor=" + motor + "]";
+	return "Numero de camara:=" + codigo_camara +  ",\n tempMaxima=" + tempMaxima + ", \n "
+                + "valorS1=" + valorS1 
+			+ ",\n valorS2=" + valorS2 + ", \n puerta=" + puerta + ", \n motor=" + motor + "]";
 }
 
 
