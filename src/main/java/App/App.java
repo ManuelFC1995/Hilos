@@ -7,28 +7,26 @@ package App;
 
 import GUI.Menu;
 import data.Conection;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Camara;
 import modelo.CamaraDAO;
+import modelo.Log;
 
 /**
  *
  * @author manue
  */
 public class App {
-    public static void main(String[] args) throws SQLException {
-  
+    public static void main(String[] args) throws SQLException, IOException {
+  Menu.principal();
+ 
+
         
-       CamaraDAO c=new CamaraDAO();
-        Camara cm = new Camara();
-        List<Camara> camaras=new ArrayList();
-        
-        
-        camaras=c.load();
-        System.out.println(camaras);
+     
    
     }
 }
