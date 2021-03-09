@@ -6,6 +6,7 @@
 package App;
 
 import GUI.Menu;
+import GUI.Test;
 import data.Conection;
 import java.io.IOException;
 import java.sql.Connection;
@@ -24,9 +25,7 @@ public class App {
     public static void main(String[] args) throws SQLException, IOException {
   Menu.principal();
  
-
-        
-     
+ 
    
     }
 }

@@ -29,7 +29,7 @@ public class CamaraDAO extends Camara {
     public CamaraDAO() {
     }
     
-    public List load() {
+    public synchronized List load() {
         // Cargamos la base de datos en el módelo de datos de nuestra aplicación JAVA
         List <Camara> elementos=new ArrayList<>();
         String sql="select * from camara";
@@ -58,6 +58,7 @@ public class CamaraDAO extends Camara {
             Logger.getLogger(CamaraDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         return elementos;
+   
     }
    
     
@@ -68,7 +69,7 @@ public class CamaraDAO extends Camara {
  // ---------------------------------------------
 //LOAD CAMARA ID
 //--------------------------------------------
-public Camara load(int id) {
+public synchronized Camara load(int id) {
         // Cargamos la base de datos en el módelo de datos de nuestra aplicación JAVA
         Camara c=new Camara();
         String sql="select * from camara where codigo_camara=?";
@@ -93,11 +94,12 @@ public Camara load(int id) {
             Logger.getLogger(CamaraDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         return c;
+   
     }
  
 
 
-        public void modificarS1(int valor,int id) throws SQLException {
+        public synchronized void modificarS1(int valor,int id) throws SQLException {
         Statement st = null;
         Camara c = new Camara();
            con=cn.Conectar();
@@ -126,7 +128,7 @@ public Camara load(int id) {
 //----------------------------------
 //METODO CREATE CAMARA
 //-----------------------------------
-public int create(Object element) {
+public synchronized int create(Object element) {
         int r=0;
         if(element instanceof Camara){
             Camara c=(Camara) element;
@@ -160,7 +162,7 @@ public int create(Object element) {
 //-------------------------------------------------------
 //UPDATE CAMARA
 //--------------------------------------------------------
-public int update(Object element) {
+public  synchronized Boolean update(Object element) {
         int r=0;
         if(element instanceof Camara){
         Camara c=(Camara) element;
@@ -187,6 +189,6 @@ public int update(Object element) {
             Logger.getLogger(CamaraDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return r;
+        return true;
     }
 }

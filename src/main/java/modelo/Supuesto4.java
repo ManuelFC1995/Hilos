@@ -33,7 +33,7 @@ public class Supuesto4 extends Thread{
                Logger.getLogger(Supuesto4.class.getName()).log(Level.SEVERE, null, ex);
            }
              }while(continuar);
-}
+} 
     
       public void detener(){
       continuar=false;

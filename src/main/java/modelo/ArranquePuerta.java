@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package modelo;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import static java.lang.Thread.sleep;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -15,13 +16,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.jvm.hotspot.runtime.Threads;
 
 /**
  *
  * @author manue
  */
-public class Arranque extends Thread {
-public final static String SUBVERDE="\u001B[42;30m";
+public class ArranquePuerta extends Thread {
+    public final static String SUBVERDE="\u001B[42;30m";
 public final static String SUBROJO="\033[41;34m";
 public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -30,14 +32,14 @@ public static final String ANSI_BLACK = "\u001B[30m";
     int id;
     int sensor;
 
-    public Arranque(int id, int sensor) {
+    public ArranquePuerta(int id) {
         this.id = id;
-        this.sensor = sensor;
+       
     }
 
-    @Override
+  @Override
     public void run() {
-      Scanner sc = new Scanner(System.in);
+ Scanner sc = new Scanner(System.in);
         Socket cliente = null;
         ObjectInputStream entrada = null;
         ObjectOutputStream salida = null;
@@ -46,37 +48,24 @@ public static final String ANSI_BLACK = "\u001B[30m";
         boolean updated = false;
         String yesorno = "";
         int id_camara = -1;
-        int n_sensor = -1;
-        int v_temperatura = 0;
+        boolean v_puerta = false;
+
         while (id_camara <= 0) {
             System.out.println("Introduce la Id del Chamber");
             id_camara = sc.nextInt();
         }
-        do {
-            try {
-                System.out.println("¿Qué sensor es?");
-                System.out.println("------------------");
-                System.out.println("1.Sensor 1");
-                System.out.println("2.Sensor 2");
-                n_sensor = sc.nextInt();
-            } catch (InputMismatchException e) {
-                sc = new Scanner(System.in);
-                e.printStackTrace();
-                System.out.println("¡Cuidado! Solo puedes insertar números.");
-            }
-        } while (n_sensor < 0 && n_sensor < 2);
 
         do {
             try {
-                System.out.println("Introduce el valor de Sensor");
-                v_temperatura = sc.nextInt();
+                System.out.println("Introduce el valor de Sensor 'True' o 'False': ");
+                v_puerta = sc.nextBoolean();
                 valid = true;
 
 
                 do {
-                    System.out.println("¿Quieres cambiar otra vez el valor del sensor?");
+                    System.out.println("¿Quieres cambiar otra vez el valor del sensor de la puerta?");
                     System.out.println("----------------------------------------");
-                    System.out.println("Y para cambiar el valor del sensor");
+                    System.out.println("Pulse y para cambiar el valor del sensor");
                     System.out.println("Cualquier otra letra/numero para no cambiar el valor del sensor");
                     yesorno = sc.next();
 
@@ -91,7 +80,6 @@ public static final String ANSI_BLACK = "\u001B[30m";
             }
         } while (valid == false);
 
-
         try {
 
             cliente = new Socket(ipServidor, 55000);
@@ -103,6 +91,9 @@ public static final String ANSI_BLACK = "\u001B[30m";
             entrada = new ObjectInputStream(cliente.getInputStream());
             // será lo que nos devuelva el servidor
 
+        } catch (UnknownHostException excepcion) {
+            excepcion.printStackTrace();
+            System.err.println("El servidor no está levantado");
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error: " + e);
@@ -110,13 +101,11 @@ public static final String ANSI_BLACK = "\u001B[30m";
         }
 
         try {
-            salida.writeObject(1);
+            salida.writeObject(2);
             salida.flush();
             salida.writeInt(id_camara);
             salida.flush();
-            salida.writeInt(n_sensor);
-            salida.flush();
-            salida.writeInt(v_temperatura);
+            salida.writeBoolean(v_puerta);
             salida.flush();
             updated = entrada.readBoolean();
 
@@ -131,12 +120,17 @@ public static final String ANSI_BLACK = "\u001B[30m";
             } else {
                 System.out.println("No se ha podido actualizar correctamente");
             }
+        } catch (UnknownHostException excepcion) {
+            System.err.println("No encuentro el servidor en la dirección" + ipServidor);
+        } catch (IOException excepcion) {
+            System.err.println("Error de entrada/salida");
+            excepcion.printStackTrace();
         } catch (Exception e) {
             System.err.println("Error: " + e);
         }
     }
 
-    public void LeerSensor1(int id_camara) throws IOException {
+    public void LeerSensorPuerta(int id_camara) throws IOException {
 
   
    CamaraDAO cdao = new CamaraDAO();
@@ -169,38 +163,7 @@ public static final String ANSI_BLACK = "\u001B[30m";
 
     }
 
-    public void LeerSensor2(int id_camara) throws IOException {
-
-     
-   CamaraDAO cdao = new CamaraDAO();
-       Camara c = new Camara();
-       c=CargarCamara(id_camara);
-  
-                if (c.getValorS2() > c.getTempMaxima() && c.isMotor()==false) {
-                   
-                    System.out.println(SUBROJO+"Temperatura inadecuada  en el Sensor 2"+ANSI_RESET);
-                    System.out.println("Comprobando puerta");
-                    if (c.isPuerta()==true) {
-                        System.out.println(" La puerta esta abierta,Cerrando puerta");
-                        c.setPuerta(0);
-                        System.out.println("Arrancando motor");
-                        c.setMotor(1);
-                             cdao.update(c);
-                    } else {
-
-                        System.out.println(" La puerta esta cerrada,Arrancando motor");
-                        c.setMotor(1);
-                             cdao.update(c);
-                    }
-                } else {
-                    System.out.println(SUBVERDE+"Situacion correcta S2"+ANSI_RESET);
-                }
-
-                cdao.update(c);
-            
-
-    }
-    
+   
     public Camara CargarCamara(int id){
         Camara c = new Camara();
          CamaraDAO cdao = new CamaraDAO();
